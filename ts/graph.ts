@@ -106,6 +106,11 @@ export class GraphView extends DOMWidgetView {
         gridSize: 1
       });
 
+      this.paper_obj.options.defaultRouter = {
+        name: 'manhattan',
+        args: { padding: 10 }
+      };
+
       this.cells_changed();
     });
   }

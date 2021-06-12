@@ -41,6 +41,12 @@
      :initarg :size
      :initform '(:object-plist "x" 1 "y" 1)
      :trait :json
+     :documentation "")
+   (ports
+     :accessor ports
+     :initarg :ports
+     :initform :empty-object
+     :trait :json
      :documentation ""))
   (:metaclass jupyter-widgets:trait-metaclass)
   (:documentation ""))
@@ -53,3 +59,23 @@
   (:default-initargs
     :%model-name "RectangleModel"
     :%view-name "RectangleView"))
+
+
+(defclass link (cell)
+  ((source
+     :accessor source
+     :initarg :source
+     :initform :empty-object
+     :trait :json
+     :documentation "")
+   (target
+     :accessor target
+     :initarg :target
+     :initform :empty-object
+     :trait :json
+     :documentation ""))
+  (:metaclass jupyter-widgets:trait-metaclass)
+  (:documentation "")
+  (:default-initargs
+    :%model-name "LinkModel"
+    :%view-name "LinkView"))
