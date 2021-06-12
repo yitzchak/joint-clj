@@ -1,6 +1,6 @@
 {
   "name": "joint-clj",
-  "version": "0.1.4",
+  "version": "0.1.9",
   "description": "A Common Lisp Jupyter binding for JointJS",
   "main": "js/index.js",
   "types": "./js/index.d.ts",

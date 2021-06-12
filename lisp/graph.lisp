@@ -2,7 +2,12 @@
 
 
 (defclass graph (jupyter-widgets:dom-widget)
-  ()
+  ((cells
+     :accessor cells
+     :initarg :cells
+     :initform nil
+     :trait :widget-list
+     :documentation ""))
   (:metaclass jupyter-widgets:trait-metaclass)
   (:documentation "")
   (:default-initargs

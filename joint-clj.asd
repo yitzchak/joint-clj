@@ -12,4 +12,5 @@
         ((:file "packages")
          (:file "version")
          (:file "graph")
+         (:file "cell")
          (:file "register-widgets")))))

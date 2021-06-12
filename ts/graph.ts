@@ -7,7 +7,7 @@ import {
 } from '@jupyter-widgets/base';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-//const widgets = require('@jupyter-widgets/base');
+const widgets = require('@jupyter-widgets/base');
 
 import { MODULE_NAME, MODULE_VERSION } from './version';
 
@@ -16,11 +16,15 @@ import '../css/widget.css';
 
 import * as joint from 'jointjs';
 
+import { ViewSet } from './utils';
+
 
 export class GraphModel extends DOMWidgetModel {
   defaults() {
     return {
       ...super.defaults(),
+
+      cells: [],
 
       _model_name: 'GraphModel',
       _model_module: MODULE_NAME,
@@ -32,40 +36,40 @@ export class GraphModel extends DOMWidgetModel {
   }
 
   static serializers: ISerializers = {
+    cells: { deserialize: widgets.unpack_models },
     ...DOMWidgetModel.serializers,
   };
 }
 
 export class GraphView extends DOMWidgetView {
-  graph_container: any;
-  paper_obj: any;
-  graph_obj: any;
-//  componentViews: any;
-//  in_components_changing = false;
+  paper_obj: joint.dia.Paper | null | undefined;
+  graph_obj: joint.dia.Graph | null | undefined;
+  child_views: any;
+  in_cells_changing: Boolean = false;
 
   initialize(parameters: any): void {
     super.initialize(parameters);
-/*    this.componentViews = new ViewSet(
+    this.child_views = new ViewSet(
       this.create_graph_child_view,
       this.remove_graph_child_view,
       this
-    );*/
+    );
     this.model.on('msg:custom', this.handle_custom_message.bind(this));
-//    this.model.on('change:components', this.components_changed, this);
+    this.model.on('change:cells', this.cells_changed, this);
 
   }
 
-/*  async components_changed() {
-    this.in_components_changing = true;
+  async cells_changed() {
+    this.in_cells_changing = true;
 
-    let views = await this.componentViews.update(this.model.get('components'));
+    let views = await this.child_views.update(this.model.get('cells'));
 
     for (let view of views) {
       await view.render();
     }
 
-    this.in_components_changing = false;
-  }*/
+    this.in_cells_changing = false;
+  }
 
   handle_custom_message(content: any): void {
     /*if (this.paper_obj) {
@@ -102,38 +106,7 @@ export class GraphView extends DOMWidgetView {
         gridSize: 1
       });
 
-      var rect = new joint.shapes.standard.Rectangle();
-      rect.position(100, 30);
-      rect.resize(100, 40);
-      rect.attr({
-        body: {
-          fill: 'blue'
-        },
-        label: {
-          text: 'Hello',
-          fill: 'white'
-        }
-      });
-      rect.addTo(this.graph_obj);
-
-      var rect2 = new joint.shapes.standard.Rectangle();
-      rect2.position(400, 30);
-      rect2.resize(100, 40);
-      rect2.attr({
-        body: {
-          fill: 'blue'
-        },
-        label: {
-          text: 'World!',
-          fill: 'white'
-        }
-      });
-      rect2.addTo(this.graph_obj);
-
-      var link = new joint.shapes.standard.Link();
-      link.source(rect);
-      link.target(rect2);
-      link.addTo(this.graph_obj);
+      this.cells_changed();
     });
   }
 
@@ -145,14 +118,15 @@ export class GraphView extends DOMWidgetView {
     }*/
   }
 
-/*  create_graph_child_view(model: any) {
+  create_graph_child_view(model: any) {
     return this.create_child_view(model, {
-      stage_obj: this.stage_obj
+      graph_obj: this.graph_obj,
+      paper_obj: this.paper_obj
     });
   }
 
   remove_graph_child_view(view: any) {
     view.remove();
-  }*/
+  }
 }
 

@@ -30,7 +30,8 @@ function activateWidgetExtension(
 
     exports: async () => {
       return {
-        ...await import(/* webpackChunkName: "joint-clj" */ './graph')
+        ...await import(/* webpackChunkName: "joint-clj" */ './graph'),
+        ...await import(/* webpackChunkName: "joint-clj" */ './cell')
       }
     }
   });

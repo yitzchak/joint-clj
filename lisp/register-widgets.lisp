@@ -2,5 +2,5 @@
 
 
 (jupyter-widgets:register-widgets
-  graph)
+  graph rectangle)
 
