@@ -1,1 +1,1 @@
-# jointjs-clj
+# joint-clj
