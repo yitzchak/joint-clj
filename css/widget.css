@@ -1,0 +1,8 @@
+.jupyter-widgets.joint-paper {
+  height: 480px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  flex: 1 1 auto;
+}
+
