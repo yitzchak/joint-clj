@@ -1,6 +1,6 @@
 {
   "name": "joint-clj",
-  "version": "0.1.13",
+  "version": "0.1.19",
   "description": "A Common Lisp Jupyter binding for JointJS",
   "main": "js/index.js",
   "types": "./js/index.d.ts",
@@ -22,6 +22,7 @@
   "dependencies": {
     "@jupyter-widgets/base": "^4.0.0",
     "dagre": "^0.8.5",
+    "graphlib": "^2.1.8",
     "jointjs": "^3.3.1"
   },
   "devDependencies": {

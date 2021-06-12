@@ -61,6 +61,15 @@
     :%view-name "RectangleView"))
 
 
+(defclass headered-rectangle (element)
+  ()
+  (:metaclass jupyter-widgets:trait-metaclass)
+  (:documentation "")
+  (:default-initargs
+    :%model-name "HeaderedRectangleModel"
+    :%view-name "HeaderedRectangleView"))
+
+
 (defclass link (cell)
   ((source
      :accessor source

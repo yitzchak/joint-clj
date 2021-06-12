@@ -16,6 +16,12 @@ import '../css/widget.css';
 
 import * as joint from 'jointjs';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const dagre = require('dagre');
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const graphlib = require('graphlib');
+
 import { ViewSet } from './utils';
 
 
@@ -72,19 +78,20 @@ export class GraphView extends DOMWidgetView {
   }
 
   handle_custom_message(content: any): void {
-    /*if (this.paper_obj) {
+    if (this.paper_obj && this.graph_obj) {
       switch (content.do) {
-        case 'make_image':
-          this.make_image(content);
-          break;
-        case 'auto_view':
-          this.stage_obj.autoView(content.duration || 0);
-          break;
-        case 'move':
-          this.stage_obj.animationControls.move(content.to, content.duration || 0);
+        case 'layout':
+          joint.layout.DirectedGraph.layout(this.graph_obj, {
+            rankDir: content.rank_dir,
+            nodeSep: content.node_sep,
+            edgeSep: content.edge_sep,
+            rankSep: content.rank_sep,
+            dagre,
+            graphlib
+          });
           break;
       }
-    }*/
+    }
   }
 
   render() {
@@ -109,6 +116,11 @@ export class GraphView extends DOMWidgetView {
       this.paper_obj.options.defaultRouter = {
         name: 'manhattan',
         args: { padding: 10 }
+      };
+
+      this.paper_obj.options.defaultConnector = {
+        name: 'jumpover',
+        args: { }
       };
 
       this.cells_changed();
